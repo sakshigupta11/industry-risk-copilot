@@ -18,7 +18,7 @@ export async function apiRequest<T>(path: string, options: RequestInit & { query
   try { body = await response.json() as ApiEnvelope<T>; }
   catch { throw new ApiError("INVALID_RESPONSE", "The review service returned an unreadable response.", response.status, response.status >= 500); }
   if (!response.ok || !body.success || body.error) throw new ApiError(body.error?.code ?? `HTTP_${response.status}`, body.error?.message ?? "The request could not be completed.", response.status, body.error?.retryable ?? response.status >= 500, body.error?.request_id);
-  const data = body.data ?? body.review as T | undefined;
+  const data = (body.data ?? body.review ?? body) as T | undefined;
   if (data === undefined) throw new ApiError("MISSING_DATA", "The review service returned no data.", response.status);
   return { data, warnings: body.warnings ?? [] };
 }

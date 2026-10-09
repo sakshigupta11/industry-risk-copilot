@@ -32,7 +32,7 @@ export type ReviewDetail = {
 export type ReviewListItem = Pick<ReviewDetail, "case_id" | "company_name" | "final_industry_category" | "policy_risk" | "confidence" | "review_status" | "decision_authority" | "workflow_context" | "last_updated_at" | "allowed_actions">;
 export type Pagination = { page: number; page_size: number; total: number };
 export type ReviewListResponse = { reviews: ReviewListItem[]; pagination: Pagination };
-export type ApiEnvelope<T> = { success: boolean; data?: T; review?: ReviewDetail; warnings?: string[]; error?: { code: string; message: string; retryable?: boolean; request_id?: string } };
+export type ApiEnvelope<T> = { success: boolean; data?: T; review?: ReviewDetail; reviews?: ReviewListItem[]; items?: TaxonomyCategory[]; pagination?: Pagination; warnings?: string[]; error?: { code: string; message: string; retryable?: boolean; request_id?: string } };
 
 export type ReviewQuery = { status?: ReviewStatus; authority?: ReviewerRole; risk?: Risk; search?: string; page?: number; page_size?: number; sort?: string; completed?: string };
 export type Actor = { actor_name: string; actor_email: string; actor_role: ReviewerRole };
