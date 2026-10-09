@@ -19,6 +19,10 @@ export type ReviewFixture = {
   aiRecommendation: IndustryCategory & { confidence: number };
   proposedOverride?: OverrideProposal; approval: Approval; finalDecision?: FinalDecision; workflowContext: WorkflowContext; history: ReviewEvent[];
   allowedActions?: string[]; lastAction?: ReviewAction; lastActionReason?: string; lastActionAt?: string;
+  companySummary?: string; currentBusinessActivity?: string; futureOrPlannedActivity?: string; evidence?: string;
+  materialCandidates?: string; materialityUnclearCandidates?: string; supportingCandidates?: string;
+  missingInformation?: string; conflictingInformation?: string; classificationCriticalGap?: boolean | null; classificationCriticalGapReason?: string;
+  confidenceReason?: string; tieResolution?: string; tieResolutionReason?: string;
 };
 
 export type { IndustryRisk };
