@@ -1,7 +1,9 @@
 import { ApiError } from "./errors";
 import type { ApiEnvelope } from "./types";
 
-const apiBaseUrl = process.env.NEXT_PUBLIC_FINCRIME_API_BASE_URL ?? "/api";
+// Keep browser requests off the conventional `/api` prefix. Some client-side
+// blockers intercept that prefix; Next rewrites this path to the internal API.
+const apiBaseUrl = process.env.NEXT_PUBLIC_FINCRIME_API_BASE_URL ?? "/workspace-data";
 
 function buildUrl(path: string, query?: Record<string, string | number | undefined>) {
   const url = new URL(`${apiBaseUrl.replace(/\/$/, "")}${path}`, typeof window === "undefined" ? "http://localhost" : window.location.origin);
