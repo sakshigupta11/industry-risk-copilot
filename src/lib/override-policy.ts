@@ -14,7 +14,7 @@ export type OverrideOutcome = {
 };
 
 export const riskOrder: Record<IndustryRisk, number> = { LOW: 0, MEDIUM: 1, HIGH: 2, PROHIBITED: 3 };
-export const riskLabel = (risk: IndustryRisk) => risk.charAt(0) + risk.slice(1).toLowerCase();
+export const riskLabel = (risk?: IndustryRisk) => risk ? risk.charAt(0) + risk.slice(1).toLowerCase() : "Unclassified";
 export const isProhibitedPath = (original: IndustryRisk, proposed: IndustryRisk) => original === "PROHIBITED" || proposed === "PROHIBITED";
 
 export function getOverrideOutcome(role: Role, originalRisk: IndustryRisk, proposedRisk: IndustryRisk): OverrideOutcome {
