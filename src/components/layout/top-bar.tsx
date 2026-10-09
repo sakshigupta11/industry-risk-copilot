@@ -1,0 +1,2 @@
+import { RoleSwitcher } from "./role-switcher";
+export function TopBar() { return <header className="flex min-h-16 items-center justify-between border-b border-border bg-surface px-5 sm:px-8"><div><p className="text-xs font-medium uppercase tracking-[0.13em] text-muted">Operations workspace</p><h1 className="mt-0.5 text-base font-semibold tracking-tight text-foreground">Industry Risk Copilot</h1></div><div className="flex items-center gap-3"><span className="hidden text-xs font-medium text-muted sm:inline">Demo role</span><RoleSwitcher /></div></header>; }
