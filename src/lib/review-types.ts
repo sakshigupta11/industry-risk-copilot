@@ -15,7 +15,7 @@ export type FinalDecision = IndustryCategory & { decidedByRole: Role; decidedAt:
 
 // Transitional UI contract. Step 2 replaces local instances with API-derived ReviewDetail mappings.
 export type ReviewFixture = {
-  id: string; company: string; category: string; risk: ReviewRisk; confidence: number; status: ReviewStatus; authority: ReviewAuthority; updated: string; submitted: string; documentName: string; website?: string;
+  id: string; company: string; category: string; risk: ReviewRisk; confidence: number; status: ReviewStatus; authority: ReviewAuthority; updated: string; updatedExact?: string; submitted: string; documentName: string; website?: string;
   aiRecommendation: IndustryCategory & { confidence: number };
   proposedOverride?: OverrideProposal; approval: Approval; finalDecision?: FinalDecision; workflowContext: WorkflowContext; history: ReviewEvent[];
   allowedActions?: string[]; lastAction?: ReviewAction; lastActionReason?: string; lastActionAt?: string;
