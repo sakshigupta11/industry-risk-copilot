@@ -25,5 +25,12 @@ export async function apiRequest<T>(path: string, options: RequestInit & { query
 
 export async function apiReviewRequest(path: string, options: RequestInit = {}) {
   const { data, warnings } = await apiRequest<import("./types").ReviewDetail>(path, options);
-  return { review: data, warnings };
+  const grouped = data as unknown as Record<string, unknown>;
+  const review = grouped.identity ? {
+    ...(grouped.identity as object), ...(grouped.analysis as object), ...(grouped.ai_recommendation as object),
+    ...(grouped.workflow as object), ...(grouped.processing as object), ...(grouped.versions as object),
+    proposed_override: grouped.proposal, approval: grouped.approval, final_decision: grouped.final_decision,
+    history: grouped.history ?? [], allowed_actions: grouped.allowed_actions ?? [],
+  } as import("./types").ReviewDetail : data;
+  return { review, warnings };
 }
