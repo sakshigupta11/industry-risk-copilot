@@ -3,6 +3,7 @@ export type Risk = "LOW" | "MEDIUM" | "HIGH" | "PROHIBITED";
 export type ProcessingStatus = "RECEIVED" | "PROCESSING" | "COMPLETED" | "FAILED";
 export type ReviewStatus = "Decision Ready" | "Analyst Review" | "Classification Review" | "Senior Review" | "Specialist Escalation" | "Needs Information" | "Completed";
 export type WorkflowContext = "STANDARD_REVIEW" | "CLASSIFICATION_RESOLUTION" | "OVERRIDE_APPROVAL" | "PROHIBITED_OVERRIDE_APPROVAL";
+export type ClassificationOutcomeType = "CONFIRMED_CATEGORY" | "NO_APPLICABLE_CATEGORY" | "INSUFFICIENT_EVIDENCE" | "UNRESOLVED_TIE";
 export type AllowedAction = "accept" | "override" | "resolve-classification" | "request-information" | "escalate" | "approve-override" | "reject-override" | "modify-decision" | "approve-resolution" | "reject-resolution" | "modify-resolution";
 
 export type TaxonomyCategory = { taxonomy_value: string; sector: string; category: string; risk: Risk; taxonomy_version: string };
@@ -23,13 +24,14 @@ export type ReviewDetail = {
   confidence?: "LOW" | "MEDIUM" | "HIGH"; confidence_reason?: string; missing_information?: string; conflicting_information?: string; evidence?: string;
   classification_critical_gap?: boolean | null; classification_critical_gap_reason?: string; tie_resolution?: string; tie_resolution_reason?: string;
   review_status: ReviewStatus; review_reason?: string; decision_authority: ReviewerRole; workflow_context: WorkflowContext;
+  classification_outcome_type?: ClassificationOutcomeType | null;
   ai_recommendation?: AIRecommendation; proposed_override?: OverrideProposal; approval?: Approval; final_decision?: FinalDecision;
   processing_status: ProcessingStatus; processing_error_code?: string; processing_error_message?: string; processing_error_retryable?: boolean;
   model_version?: string; prompt_version?: string; taxonomy_version?: string; policy_version?: string; classifier_workflow_version?: string; workflow_version: string;
   history: ReviewEvent[]; allowed_actions: AllowedAction[]; last_updated_at: string;
 };
 
-export type ReviewListItem = Pick<ReviewDetail, "case_id" | "company_name" | "final_industry_category" | "policy_risk" | "confidence" | "review_status" | "decision_authority" | "workflow_context" | "last_updated_at" | "allowed_actions">;
+export type ReviewListItem = Pick<ReviewDetail, "case_id" | "company_name" | "final_industry_category" | "policy_risk" | "confidence" | "review_status" | "decision_authority" | "workflow_context" | "classification_outcome_type" | "last_updated_at" | "allowed_actions">;
 export type Pagination = { page: number; page_size: number; total: number };
 export type ReviewListResponse = { reviews: ReviewListItem[]; pagination: Pagination };
 export type ApiEnvelope<T> = { success: boolean; data?: T; review?: ReviewDetail; reviews?: ReviewListItem[]; items?: TaxonomyCategory[]; pagination?: Pagination; warnings?: string[]; error?: { code: string; message: string; retryable?: boolean; request_id?: string } };

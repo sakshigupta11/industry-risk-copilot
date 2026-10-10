@@ -23,6 +23,7 @@ export type ReviewFixture = {
   materialCandidates?: string; materialityUnclearCandidates?: string; supportingCandidates?: string;
   missingInformation?: string; conflictingInformation?: string; classificationCriticalGap?: boolean | null; classificationCriticalGapReason?: string;
   confidenceReason?: string; tieResolution?: string; tieResolutionReason?: string;
+  classificationOutcomeType?: "CONFIRMED_CATEGORY" | "NO_APPLICABLE_CATEGORY" | "INSUFFICIENT_EVIDENCE" | "UNRESOLVED_TIE" | null;
 };
 
 export type { IndustryRisk };
