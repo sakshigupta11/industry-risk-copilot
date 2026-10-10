@@ -25,7 +25,9 @@ export function toReviewFixture(review: ReviewDetail): ReviewFixture {
   };
 }
 export function toQueueReview(review: ReviewListItem): ReviewFixture {
-  const isUnresolved = !review.final_taxonomy_value && (!review.final_industry_category || review.final_industry_category === "Unclassified");
+  // Queue rows deliberately omit taxonomy enrichment, so unresolved display falls
+  // back to the persisted category while status/context remain server-owned below.
+  const isUnresolved = !review.final_industry_category || review.final_industry_category === "Unclassified";
   const category = taxonomy(undefined, undefined, isUnresolved ? undefined : review.final_industry_category, isUnresolved ? undefined : review.policy_risk);
   const confidence = review.confidence === "HIGH" ? 90 : review.confidence === "MEDIUM" ? 70 : 50;
   return { id: review.case_id, company: review.company_name ?? "Unnamed company", category: category.category, risk: reviewRisk(isUnresolved ? undefined : review.policy_risk), confidence, status: review.review_status, authority: review.decision_authority, updated: formatRelativeTime(review.last_updated_at), updatedExact: formatDateTime(review.last_updated_at), submitted: "", documentName: "", aiRecommendation: { ...category, confidence }, approval: { required: false, requiredRole: null, status: "NOT_REQUIRED" }, workflowContext: review.workflow_context, history: [], allowedActions: review.allowed_actions ?? [] };
