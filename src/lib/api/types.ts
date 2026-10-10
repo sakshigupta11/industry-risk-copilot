@@ -3,7 +3,7 @@ export type Risk = "LOW" | "MEDIUM" | "HIGH" | "PROHIBITED";
 export type ProcessingStatus = "RECEIVED" | "PROCESSING" | "COMPLETED" | "FAILED";
 export type ReviewStatus = "Decision Ready" | "Analyst Review" | "Classification Review" | "Senior Review" | "Specialist Escalation" | "Needs Information" | "Completed";
 export type WorkflowContext = "STANDARD_REVIEW" | "CLASSIFICATION_RESOLUTION" | "OVERRIDE_APPROVAL" | "PROHIBITED_OVERRIDE_APPROVAL";
-export type AllowedAction = "accept" | "override" | "resolve-classification" | "request-information" | "escalate" | "approve-override" | "reject-override" | "modify-decision";
+export type AllowedAction = "accept" | "override" | "resolve-classification" | "request-information" | "escalate" | "approve-override" | "reject-override" | "modify-decision" | "approve-resolution" | "reject-resolution" | "modify-resolution";
 
 export type TaxonomyCategory = { taxonomy_value: string; sector: string; category: string; risk: Risk; taxonomy_version: string };
 export type AIRecommendation = { taxonomy_value?: string; sector?: string; category?: string; risk?: Risk; confidence: "LOW" | "MEDIUM" | "HIGH"; confidence_reason: string };
@@ -43,3 +43,4 @@ export type CheckerReasonInput = Actor & { reason: string };
 export type ModifyDecisionInput = Actor & TaxonomyCategory & { reason: string; notes?: string };
 export type RequestInformationInput = Actor & { reason: string; notes?: string };
 export type EscalateInput = Actor & { reason: string; notes?: string };
+export type ResolveClassificationInput = Actor & { taxonomy_value: string; reason: string; notes?: string };

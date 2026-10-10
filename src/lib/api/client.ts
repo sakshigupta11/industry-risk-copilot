@@ -36,7 +36,8 @@ export async function apiReviewRequest(path: string, options: RequestInit = {}) 
     const actionMap: Record<string, string> = {
       ACCEPT_RECOMMENDATION: "accept", SUBMIT_OVERRIDE: "override", REQUEST_INFORMATION: "request-information",
       MANUAL_ESCALATION: "escalate", APPROVE_OVERRIDE: "approve-override", REJECT_OVERRIDE: "reject-override",
-      MODIFY_DECISION: "modify-decision",
+      MODIFY_DECISION: "modify-decision", RESOLVE_CLASSIFICATION: "resolve-classification",
+      APPROVE_RESOLUTION: "approve-resolution", REJECT_RESOLUTION: "reject-resolution", MODIFY_RESOLUTION: "modify-resolution",
     };
     return {
       ...(grouped.identity as object), ...(grouped.analysis as object), ...recommendation,

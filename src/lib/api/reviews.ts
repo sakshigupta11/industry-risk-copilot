@@ -1,5 +1,5 @@
 import { apiRequest, apiReviewRequest } from "./client";
-import type { AcceptInput, CheckerReasonInput, CreateReviewInput, EscalateInput, ModifyDecisionInput, OverrideInput, RequestInformationInput, ReviewDetail, ReviewListResponse, ReviewQuery } from "./types";
+import type { AcceptInput, CheckerReasonInput, CreateReviewInput, EscalateInput, ModifyDecisionInput, OverrideInput, RequestInformationInput, ResolveClassificationInput, ReviewDetail, ReviewListResponse, ReviewQuery } from "./types";
 
 const json = (body: unknown): RequestInit => ({ method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
 const requestId = () => crypto.randomUUID();
@@ -14,6 +14,10 @@ export async function rejectOverride(caseId: string, input: CheckerReasonInput) 
 export async function modifyOverride(caseId: string, input: ModifyDecisionInput) { return apiReviewRequest(`/reviews/${encodeURIComponent(caseId)}/override-approval/modify`, json({ actor: actor(input), taxonomy_value: input.taxonomy_value, reason: input.reason, notes: input.notes, request_id: requestId() })); }
 export async function requestInformation(caseId: string, input: RequestInformationInput) { return apiReviewRequest(`/reviews/${encodeURIComponent(caseId)}/request-information`, json({ actor: actor(input), reason: input.reason, notes: input.notes, request_id: requestId() })); }
 export async function escalateReview(caseId: string, input: EscalateInput) { return apiReviewRequest(`/reviews/${encodeURIComponent(caseId)}/escalate`, json({ actor: actor(input), reason: input.reason, notes: input.notes, request_id: requestId() })); }
+export async function resolveClassification(caseId: string, input: ResolveClassificationInput) { return apiReviewRequest(`/reviews/${encodeURIComponent(caseId)}/resolve-classification`, json({ actor: actor(input), taxonomy_value: input.taxonomy_value, reason: input.reason, notes: input.notes, request_id: requestId() })); }
+export async function approveResolution(caseId: string, input: CheckerReasonInput) { return apiReviewRequest(`/reviews/${encodeURIComponent(caseId)}/resolution-approval/approve`, json({ actor: actor(input), reason: input.reason, request_id: requestId() })); }
+export async function rejectResolution(caseId: string, input: CheckerReasonInput) { return apiReviewRequest(`/reviews/${encodeURIComponent(caseId)}/resolution-approval/reject`, json({ actor: actor(input), reason: input.reason, request_id: requestId() })); }
+export async function modifyResolution(caseId: string, input: ModifyDecisionInput) { return apiReviewRequest(`/reviews/${encodeURIComponent(caseId)}/resolution-approval/modify`, json({ actor: actor(input), taxonomy_value: input.taxonomy_value, reason: input.reason, notes: input.notes, request_id: requestId() })); }
 
 export async function createReview(input: CreateReviewInput): Promise<{ review: ReviewDetail; warnings: string[] }> {
   const formData = new FormData();

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-type ActionType = "ACCEPT_RECOMMENDATION" | "SUBMIT_OVERRIDE" | "APPROVE_OVERRIDE" | "REJECT_OVERRIDE" | "MODIFY_DECISION" | "REQUEST_INFORMATION" | "MANUAL_ESCALATION";
+type ActionType = "ACCEPT_RECOMMENDATION" | "SUBMIT_OVERRIDE" | "APPROVE_OVERRIDE" | "REJECT_OVERRIDE" | "MODIFY_DECISION" | "REQUEST_INFORMATION" | "MANUAL_ESCALATION" | "RESOLVE_CLASSIFICATION" | "APPROVE_RESOLUTION" | "REJECT_RESOLUTION" | "MODIFY_RESOLUTION";
 
 const unavailable = () => NextResponse.json({ success: false, error: { code: "BACKEND_UNAVAILABLE", message: "The review service is temporarily unavailable.", retryable: true } }, { status: 502 });
 
