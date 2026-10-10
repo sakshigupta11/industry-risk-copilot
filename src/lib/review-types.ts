@@ -1,13 +1,13 @@
 import type { Role } from "@/components/providers/role-context";
 import type { IndustryCategory, IndustryRisk } from "./industry-taxonomy";
 
-export type ReviewRisk = "Low" | "Medium" | "High" | "Prohibited";
-export type ReviewStatus = "Decision Ready" | "Analyst Review" | "Senior Review" | "Specialist Escalation" | "Needs Information" | "Completed";
+export type ReviewRisk = "Low" | "Medium" | "High" | "Prohibited" | "Not assigned";
+export type ReviewStatus = "Decision Ready" | "Analyst Review" | "Classification Review" | "Senior Review" | "Specialist Escalation" | "Needs Information" | "Completed";
 export type ReviewAuthority = Role;
 export type ApprovalStatus = "NOT_REQUIRED" | "PENDING_SENIOR_APPROVAL" | "PENDING_SPECIALIST_APPROVAL" | "APPROVED" | "REJECTED" | "MODIFIED_AND_APPROVED";
-export type WorkflowContext = "STANDARD_REVIEW" | "OVERRIDE_APPROVAL" | "PROHIBITED_OVERRIDE_APPROVAL";
+export type WorkflowContext = "STANDARD_REVIEW" | "CLASSIFICATION_RESOLUTION" | "OVERRIDE_APPROVAL" | "PROHIBITED_OVERRIDE_APPROVAL";
 export type DecisionSource = "AI_ACCEPTED" | "DIRECT_OVERRIDE" | "APPROVED_OVERRIDE" | "CHECKER_MODIFIED";
-export type ReviewAction = "accept" | "override" | "request-info" | "escalate" | "approve-override" | "reject-override" | "modify-decision";
+export type ReviewAction = "accept" | "override" | "resolve-classification" | "request-info" | "escalate" | "approve-override" | "reject-override" | "modify-decision";
 export type ReviewEvent = { id: string; time: string; title: string; detail: string };
 export type OverrideProposal = IndustryCategory & { reason: string; notes?: string; submittedByRole: Role; submittedAt: string };
 export type Approval = { required: boolean; requiredRole: ReviewAuthority | null; status: ApprovalStatus; checkerRole?: Role; checkerAction?: "approved" | "rejected" | "modified"; checkerReason?: string; checkerAt?: string };

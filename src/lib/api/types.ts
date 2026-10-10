@@ -1,9 +1,9 @@
 export type ReviewerRole = "Tier 1 Analyst" | "Senior FinCrime Reviewer" | "Escalation Specialist";
 export type Risk = "LOW" | "MEDIUM" | "HIGH" | "PROHIBITED";
 export type ProcessingStatus = "RECEIVED" | "PROCESSING" | "COMPLETED" | "FAILED";
-export type ReviewStatus = "Decision Ready" | "Analyst Review" | "Senior Review" | "Specialist Escalation" | "Needs Information" | "Completed";
-export type WorkflowContext = "STANDARD_REVIEW" | "OVERRIDE_APPROVAL" | "PROHIBITED_OVERRIDE_APPROVAL";
-export type AllowedAction = "accept" | "override" | "request-information" | "escalate" | "approve-override" | "reject-override" | "modify-decision";
+export type ReviewStatus = "Decision Ready" | "Analyst Review" | "Classification Review" | "Senior Review" | "Specialist Escalation" | "Needs Information" | "Completed";
+export type WorkflowContext = "STANDARD_REVIEW" | "CLASSIFICATION_RESOLUTION" | "OVERRIDE_APPROVAL" | "PROHIBITED_OVERRIDE_APPROVAL";
+export type AllowedAction = "accept" | "override" | "resolve-classification" | "request-information" | "escalate" | "approve-override" | "reject-override" | "modify-decision";
 
 export type TaxonomyCategory = { taxonomy_value: string; sector: string; category: string; risk: Risk; taxonomy_version: string };
 export type AIRecommendation = { taxonomy_value?: string; sector?: string; category?: string; risk?: Risk; confidence: "LOW" | "MEDIUM" | "HIGH"; confidence_reason: string };
