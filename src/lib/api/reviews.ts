@@ -23,5 +23,8 @@ export async function createReview(input: CreateReviewInput): Promise<{ review: 
   const formData = new FormData();
   formData.set("file", input.file); if (input.website) formData.set("website", input.website);
   formData.set("submitted_by_name", input.submitted_by_name); formData.set("submitted_by_email", input.submitted_by_email); formData.set("submitted_by_role", input.submitted_by_role);
+  // This belongs to one user submission, not to a network attempt. The intake
+  // service persists it and returns the original case on a safe replay.
+  formData.set("intake_request_id", requestId());
   return apiReviewRequest("/reviews", { method: "POST", body: formData });
 }
