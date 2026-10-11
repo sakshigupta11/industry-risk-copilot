@@ -4,7 +4,20 @@ import type { ReviewDetail, ReviewListItem, Risk } from "./types";
 
 const reviewRisk = (risk?: Risk): ReviewRisk => risk ? risk.charAt(0) + risk.slice(1).toLowerCase() as ReviewRisk : "Not assigned";
 const taxonomy = (value?: string, sector?: string, category?: string, risk?: Risk): IndustryCategory => ({ value: value ?? "", sector: sector ?? "Unclassified", category: category ?? "Unclassified", risk: risk ?? "LOW" });
-const formatDateTime = (value?: string) => { if (!value) return "—"; const date = new Date(value); return Number.isNaN(date.valueOf()) ? value : new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true }).format(date); };
+export const formatDateTime = (value?: string) => {
+  if (!value) return "—";
+  const date = new Date(value);
+  if (Number.isNaN(date.valueOf())) return value;
+
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(date).replace(/\b(am|pm)\b/i, (period) => period.toUpperCase());
+};
 const formatRelativeTime = (value?: string) => { if (!value) return "—"; const elapsed = Date.now() - new Date(value).valueOf(); if (!Number.isFinite(elapsed) || elapsed < 0) return formatDateTime(value); const minutes = Math.floor(elapsed / 60_000); if (minutes < 1) return "Just now"; if (minutes < 60) return `${minutes} min ago`; const hours = Math.floor(minutes / 60); if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`; const days = Math.floor(hours / 24); return days < 7 ? `${days} day${days === 1 ? "" : "s"} ago` : formatDateTime(value); };
 const eventLabel = (eventType: string) => ({
   NO_APPLICABLE_CATEGORY_PROPOSED: "No applicable category proposed",
